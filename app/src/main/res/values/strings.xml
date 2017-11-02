@@ -5,4 +5,5 @@
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="hit_me_with_a_joke">Hit me with a joke!</string>
     <string name="error_snack">There was a problem with joke loading</string>
+    <string name="local_gce_server">http://10.0.2.2:8080/_ah/api/</string>
 </resources>

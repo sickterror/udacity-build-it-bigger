@@ -9,11 +9,9 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.luka.myapplication.backend.myApi.MyApi;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MyApi mJokeApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

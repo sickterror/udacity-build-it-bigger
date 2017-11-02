@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/JokeApp.iml" filepath="$PROJECT_DIR$/JokeApp.iml" />
+      <module fileurl="file://C:\Users\Luka\Documents\Programiranja\android-projects\udacity-build-it-bigger\JokeApp.iml" filepath="C:\Users\Luka\Documents\Programiranja\android-projects\udacity-build-it-bigger\JokeApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/backend/backend.iml" filepath="$PROJECT_DIR$/backend/backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/jokelib/jokelib.iml" filepath="$PROJECT_DIR$/jokelib/jokelib.iml" />
       <module fileurl="file://$PROJECT_DIR$/showjoke/showjoke.iml" filepath="$PROJECT_DIR$/showjoke/showjoke.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/udacity-build-it-bigger.iml" filepath="$PROJECT_DIR$/.idea/udacity-build-it-bigger.iml" />
     </modules>
   </component>
 </project>

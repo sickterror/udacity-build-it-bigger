@@ -1,6 +1,7 @@
 package com.timelesssoftware.jokeapp;
 
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +15,9 @@ import com.google.android.gms.ads.AdView;
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment {
+
+    private View mShowJoke;
+    private View mProgressBar;
 
     public MainActivityFragment() {
     }
@@ -36,5 +40,29 @@ public class MainActivityFragment extends Fragment {
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
         mAdView.loadAd(adRequest);
+
+        mShowJoke = view.findViewById(R.id.show_joke);
+        mProgressBar = view.findViewById(R.id.loading_joke);
+
+        mShowJoke.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mShowJoke.setEnabled(false);
+                mProgressBar.setVisibility(View.VISIBLE);
+                new JokeAsyncTask(getContext(), new JokeAsyncTask.IJokeAsyncListener() {
+                    @Override
+                    public void onSuccess() {
+                        mShowJoke.setEnabled(true);
+                        mProgressBar.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError(int error) {
+                        mShowJoke.setEnabled(true);
+                        Snackbar.make(mShowJoke, R.string.error_snack, Snackbar.LENGTH_LONG).show();
+                    }
+                }).execute("");
+            }
+        });
     }
 }

@@ -46,7 +46,7 @@ public class JokeAsyncTask extends AsyncTask<String, Void, String> {
         }
         MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                 new AndroidJsonFactory(), null)
-                .setRootUrl("http://10.0.2.2:8080/_ah/api/");
+                .setRootUrl(mContext.getString(R.string.local_gce_server));
         mJokeApi = builder.build();
         try {
             return mJokeApi.getJoke().execute().getData();
@@ -60,35 +60,39 @@ public class JokeAsyncTask extends AsyncTask<String, Void, String> {
     protected void onPostExecute(final String s) {
         super.onPostExecute(s);
         Log.i("test string", s);
+        if (mContext.getResources().getBoolean(R.bool.payedVersion)) {
+            iJokeAsyncListener.onSuccess();
+            startJokeActivity(s);
+        } else {
+            mInterstitialAd = new InterstitialAd(mContext);
+            mInterstitialAd.setAdUnitId(mContext.getString(R.string.interstitial_ad_unit_id));
+            mInterstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+                    super.onAdLoaded();
+                    mInterstitialAd.show();
+                }
 
-        mInterstitialAd = new InterstitialAd(JokeTellingApp.context);
-        mInterstitialAd.setAdUnitId(mContext.getString(R.string.interstitial_ad_unit_id));
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                mInterstitialAd.show();
-            }
+                @Override
+                public void onAdFailedToLoad(int errorCode) {
+                    super.onAdFailedToLoad(errorCode);
+                    iJokeAsyncListener.onError(errorCode);
+                    startJokeActivity(s);
+                }
 
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                super.onAdFailedToLoad(errorCode);
-                iJokeAsyncListener.onError(errorCode);
-                startJokeActivity(s);
-            }
+                @Override
+                public void onAdClosed() {
+                    iJokeAsyncListener.onSuccess();
+                    startJokeActivity(s);
 
-            @Override
-            public void onAdClosed() {
-                iJokeAsyncListener.onSuccess();
-                startJokeActivity(s);
-
-            }
-        });
-        AdRequest ar = new AdRequest
-                .Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
-        mInterstitialAd.loadAd(ar);
+                }
+            });
+            AdRequest ar = new AdRequest
+                    .Builder()
+                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                    .build();
+            mInterstitialAd.loadAd(ar);
+        }
     }
 
     void startJokeActivity(String joke) {
@@ -98,7 +102,7 @@ public class JokeAsyncTask extends AsyncTask<String, Void, String> {
         mContext.startActivity(intent);
     }
 
-    interface IJokeAsyncListener {
+    public interface IJokeAsyncListener {
         void onSuccess();
 
         void onError(int error);
