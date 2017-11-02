@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">JokeApp</string>
+    <string name="action_settings">Settings</string>
+    <bool name="payedVersion">false</bool>
+</resources>
