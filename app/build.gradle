@@ -52,8 +52,6 @@ dependencies {
     })
 
     freeCompile 'com.google.android.gms:play-services-ads:11.4.2'
-    // if you use the support libraries
-    // annotationProcessor 'com.google.dagger:dagger-android-processor:2.9'
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:26.1.0'
